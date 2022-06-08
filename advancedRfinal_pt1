@@ -1,0 +1,44 @@
+Comparing 4 implementations of the factorial function with microbenchmark for n = 1, 10, and 100: reduction is consistently the slowest method, while looping is fastest except in the n=1 case, when the factorial_func is slightly faster.
+
+Results for n=1:
+> microbenchmark(factorial_loop(1),
++                factorial_reduce(1),
++                factorial_func(1),
++                factorial_mem(1))
+
+Unit: microseconds
+                expr     min      lq      mean   median       uq     max neval
+   factorial_loop(1)   1.459   1.584   2.03901   1.7090   2.6880   9.417   100
+ factorial_reduce(1) 107.501 112.042 118.95025 114.5210 117.5215 371.001   100
+   factorial_func(1)   1.376   1.501   1.85941   1.6260   2.2505   3.126   100
+    factorial_mem(1)   1.667   1.792   2.49527   2.0425   2.9590  22.126   100
+
+
+Results for n=10:
+> microbenchmark(factorial_loop(10),
++                factorial_reduce(10),
++                factorial_func(10),
++                factorial_mem(10))
+Unit: microseconds
+                 expr     min       lq      mean   median       uq     max neval
+   factorial_loop(10)   2.376   2.6260   3.17280   2.9385   3.8965   7.168   100
+ factorial_reduce(10) 125.042 128.1880 133.59391 128.9590 133.9590 328.709   100
+   factorial_func(10)  13.917  14.6885  15.28191  15.1260  15.7510  17.959   100
+    factorial_mem(10)  18.292  18.8965  20.40657  19.6470  20.9385  54.043   100
+
+
+Results for n=100:
+> microbenchmark(factorial_loop(100),
++                factorial_reduce(100),
++                factorial_func(100),
++                factorial_mem(100))
+Unit: microseconds
+                  expr     min       lq      mean   median       uq      max neval
+   factorial_loop(100)   5.167   5.5425   6.16939   6.0840   6.7300    8.667   100
+ factorial_reduce(100) 308.375 327.4590 349.19195 338.3755 366.8760  539.251   100
+   factorial_func(100) 135.875 141.3755 186.49399 143.6465 149.5005 4028.834   100
+    factorial_mem(100) 201.042 214.8340 224.89193 222.0425 231.5635  282.709   100
+
+Note that warnings are produced in the n=100 case due to the huge integers produced by the factorial function.
+
+
